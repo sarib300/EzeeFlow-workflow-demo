@@ -376,7 +376,13 @@ function renderSceneFromLazy(ThreeScenes, data) {
           minWidth: 0
         }}
       >
-        {inView && <SceneWrapper color={data.color}>{renderScene()}</SceneWrapper>}
+             {inView && (
+  <Suspense fallback={null}>
+    <ThreeScenes.SceneWrapper color={data.color}>
+      {renderSceneFromLazy(ThreeScenes, data)}
+    </ThreeScenes.SceneWrapper>
+  </Suspense>
+)}
         
         <div style={{
           position: 'absolute',
