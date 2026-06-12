@@ -2,9 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpg" href="/assets/favicon.jpg" style="border-radius: 50%;" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Preload main JS bundle (Vite adds hash, but we can be generic) -->
+<link rel="preload" href="/src/main.jsx" as="script" />
+
+<!-- Preload font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Preload Three.js heavy vendor chunk (optional, after first deploy check file name) -->
+<link rel="preload" href="/assets/three-vendor.[HASH].js" as="script">
+    <link rel="icon" type="image/jpg" href="/assets/favicon.jpg" style="border-radius: 50%;" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EzeeFlow Workflow</title>
   </head>

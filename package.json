@@ -9,15 +9,15 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
- "dependencies": {
-    "react": "^18.x",
-    "react-dom": "^18.x",
-    "three": "^0.160.x",
-    "@react-three/fiber": "^8.x",
+  "dependencies": {
     "@react-three/drei": "^9.x",
+    "@react-three/fiber": "^8.x",
     "@react-three/postprocessing": "^2.x",
     "framer-motion": "^11.x",
-    "lenis": "^1.x"
+    "lenis": "^1.x",
+    "react": "^18.x",
+    "react-dom": "^18.x",
+    "three": "^0.160.x"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -28,6 +28,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
-    "vite": "^8.0.12"
+    "vite": "^8.0.12",
+    "workbox-build": "^7.4.1"
   }
 }

@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { 
-   Float, Environment, MeshDistortMaterial, 
-  Sphere, Stars, Sparkles as DreiSparkles, Torus,  Icosahedron
-} from '@react-three/drei';
-import { EffectComposer, Bloom, ChromaticAberration } from '@react-three/postprocessing';
+import { useState, useEffect, useRef, Suspense, lazy } from 'react';
+
 import { motion, useScroll, useTransform,  } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import Lenis from 'lenis';
+
+
+
+const ThreeScenes = lazy(() => import('./ThreeScenes'));
+
 
 // ============ SMOOTH SCROLL SETUP ============
 function useSmoothScroll() {
@@ -19,86 +19,9 @@ function useSmoothScroll() {
   }, []);
 }
 
-// ============ 3D SCENES (one per section) ============
 
-function MorphingOrb({ color }) {
-  const ref = useRef();
-  useFrame((s) => {
-    ref.current.rotation.x = s.clock.elapsedTime * 0.3;
-    ref.current.rotation.y = s.clock.elapsedTime * 0.2;
-  });
-  return (
-    <Float speed={2} rotationIntensity={0.8} floatIntensity={2}>
-      <Sphere ref={ref} args={[1.5, 32, 32]}>
-        <MeshDistortMaterial color={color} distort={0.5} speed={3} metalness={0.9} roughness={0.1} emissive={color} emissiveIntensity={0.4} />
-      </Sphere>
-    </Float>
-  );
-}
 
-function FloatingCube({ color }) {
-  const ref = useRef();
-  useFrame((s) => {
-    ref.current.rotation.x = s.clock.elapsedTime * 0.4;
-    ref.current.rotation.y = s.clock.elapsedTime * 0.5;
-  });
-  return (
-    <Float speed={1.5} floatIntensity={3}>
-      <Icosahedron ref={ref} args={[1.4, 1]}>
-        <meshStandardMaterial color={color} metalness={0.95} roughness={0.05} emissive={color} emissiveIntensity={0.3} wireframe={false} />
-      </Icosahedron>
-      <Icosahedron args={[1.6, 1]}>
-        <meshBasicMaterial color={color} wireframe transparent opacity={0.3} />
-      </Icosahedron>
-    </Float>
-  );
-}
 
-function TorusRing({ color }) {
-  const ref = useRef();
-  useFrame((s) => {
-    ref.current.rotation.x = s.clock.elapsedTime * 0.5;
-    ref.current.rotation.z = s.clock.elapsedTime * 0.3;
-  });
-  return (
-    <Float speed={2}>
-      <Torus ref={ref} args={[1.3, 0.4, 32, 100]}>
-        <MeshDistortMaterial color={color} distort={0.3} speed={2} metalness={0.9} roughness={0.1} emissive={color} emissiveIntensity={0.4} />
-      </Torus>
-    </Float>
-  );
-}
-
-function SceneWrapper({ children, color }) {
-  // Detect low-power device
-  const isLowPower = typeof navigator !== 'undefined' && 
-    (navigator.hardwareConcurrency < 4 || /Mobile/.test(navigator.userAgent));
-  return (
-    <Canvas 
-    // frameLoop={isLowPower ? 'demand' : 'always'}
-    frameLoop='always'
- camera={{ position: [0, 0, 5], fov: 50 }} 
-      gl={{ antialias: !isLowPower, alpha: true, powerPreference: 'high-performance' }}
-      dpr={isLowPower ? 1 : [1, 2]}  // cap pixel ratio
-    >
-      <Suspense fallback={null}>
-        <ambientLight intensity={0.4} />
-        <pointLight position={[5, 5, 5]} intensity={1.5} color={color} />
-        <pointLight position={[-5, -5, 5]} intensity={1} color="#fff" />
-       <Stars radius={30} depth={50} count={600} factor={3} fade speed={1} />
-<DreiSparkles count={40} scale={[6, 6, 4]} size={2} speed={0.5} color={color} />
-        {children}
-        <Environment preset="city" />
-        {!isLowPower && (
-          <EffectComposer>
-            <Bloom intensity={1} luminanceThreshold={0.2} luminanceSmoothing={0.9} />
-            <ChromaticAberration offset={[0.0006, 0.0006]} />
-          </EffectComposer>
-        )}
-      </Suspense>
-    </Canvas>
-  );
-}
 
 // ============ SECTION DATA ============
 const sections = [
@@ -199,12 +122,12 @@ const ref = useRef(null);
 const inView = useInView(ref, { amount: 0.3 });
   const isLeft = index % 2 === 0;
 
-  const renderScene = () => {
-    if (data.scene === 'orb') return <MorphingOrb color={data.color} />;
-    if (data.scene === 'cube') return <FloatingCube color={data.color} />;
-    if (data.scene === 'torus') return <TorusRing color={data.color} />;
-    return <MorphingOrb color={data.color} />;
-  };
+function renderSceneFromLazy(ThreeScenes, data) {
+  if (data.scene === 'orb') return <ThreeScenes.MorphingOrb color={data.color} />;
+  if (data.scene === 'cube') return <ThreeScenes.FloatingCube color={data.color} />;
+  if (data.scene === 'torus') return <ThreeScenes.TorusRing color={data.color} />;
+  return <ThreeScenes.MorphingOrb color={data.color} />;
+}
 
   // HERO and CTA sections (centered)
   if (data.id === 'hero' || data.id === 'cta') {
@@ -219,7 +142,13 @@ const inView = useInView(ref, { amount: 0.3 });
       padding: 'clamp(40px, 8vw, 80px) clamp(16px, 5vw, 40px)'
     }}>
       <div style={{ position: 'absolute', inset: 0, opacity: inView ? 1 : 0.3, transition: 'opacity 1s' }}>
-        <SceneWrapper color={data.color}>{renderScene()}</SceneWrapper>
+       {inView && (
+  <Suspense fallback={null}>
+    <ThreeScenes.SceneWrapper color={data.color}>
+      {renderSceneFromLazy(ThreeScenes, data)}
+    </ThreeScenes.SceneWrapper>
+  </Suspense>
+)}
       </div>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
