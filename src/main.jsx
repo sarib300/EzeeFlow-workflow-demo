@@ -15,7 +15,7 @@ createRoot(rootElement).render(
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('/sw.js')
+      .register('.public/sw.js')
       .catch(() => {
         // silently ignore errors – no crash in production
       })

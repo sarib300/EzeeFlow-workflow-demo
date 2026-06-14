@@ -1,8 +1,8 @@
 import { Suspense,  useRef,  } from 'react';
 import {  useFrame, Canvas } from '@react-three/fiber';
 import { 
-   Float, Environment, MeshDistortMaterial, 
-  Sphere, Stars, Sparkles as DreiSparkles, Torus,  Icosahedron
+  Float, Environment, MeshDistortMaterial, 
+  Sphere, Stars, Sparkles as DreiSparkles
 } from '@react-three/drei';
 import { EffectComposer, Bloom, ChromaticAberration } from '@react-three/postprocessing';
 
@@ -33,12 +33,20 @@ export function FloatingCube({ color }) {
   });
   return (
     <Float speed={1.5} floatIntensity={3}>
-      <Icosahedron ref={ref} args={[1.4, 1]}>
-        <meshStandardMaterial color={color} metalness={0.95} roughness={0.05} emissive={color} emissiveIntensity={0.3} wireframe={false} />
-      </Icosahedron>
-      <Icosahedron args={[1.6, 1]}>
+      <mesh ref={ref}>
+        <icosahedronGeometry args={[1.4, 1]} />
+        <meshStandardMaterial 
+          color={color} 
+          metalness={0.95} 
+          roughness={0.05} 
+          emissive={color} 
+          emissiveIntensity={0.3} 
+        />
+      </mesh>
+      <mesh>
+        <icosahedronGeometry args={[1.6, 1]} />
         <meshBasicMaterial color={color} wireframe transparent opacity={0.3} />
-      </Icosahedron>
+      </mesh>
     </Float>
   );
 }
@@ -51,9 +59,18 @@ export function TorusRing({ color }) {
   });
   return (
     <Float speed={2}>
-      <Torus ref={ref} args={[1.3, 0.4, 32, 100]}>
-        <MeshDistortMaterial color={color} distort={0.3} speed={2} metalness={0.9} roughness={0.1} emissive={color} emissiveIntensity={0.4} />
-      </Torus>
+      <mesh ref={ref}>
+        <torusGeometry args={[1.3, 0.4, 32, 100]} />
+        <MeshDistortMaterial 
+          color={color} 
+          distort={0.3} 
+          speed={2} 
+          metalness={0.9} 
+          roughness={0.1} 
+          emissive={color} 
+          emissiveIntensity={0.4} 
+        />
+      </mesh>
     </Float>
   );
 }
