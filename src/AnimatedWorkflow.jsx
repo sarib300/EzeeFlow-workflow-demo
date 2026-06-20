@@ -130,88 +130,88 @@ function SceneWrapper({ children, color }) {
 const sections = [
   {
     id: 'hero',
-    badge: '✦ AI-POWERED · ENTERPRISE GRADE',
-    title: 'Form Automation,\nReimagined.',
-    subtitle: 'From prompt to insight in 30 seconds. AI builds, evaluates, and improves your forms — autonomously.',
+    badge: '✦ AI-POWERED · END-TO-END WORKFLOW',
+    title: 'Workflow Automation,\nReimagined.',
+    subtitle: 'User Action → AI Graph → Automated Execution → Real-Time Dashboard → Notifications → AI Evaluation → Reports. All in one platform.',
     cta: 'See How It Works ↓',
     color: '#A78BFA',
     scene: 'orb'
   },
   {
     step: '01',
-    title: 'Any Input. Any Format.',
-    subtitle: 'INPUT FLEXIBILITY',
-    desc: 'Upload media, capture signatures, collect files, or simple text. 15+ input types supported out of the box.',
-    bullets: ['Media uploads (image, video, audio)', 'Checkboxes, ratings, signatures', 'File attachments up to 100MB'],
-    pain: 'No more juggling 5 different form tools.',
+    title: 'Your Dashboard. Your Data.',
+    subtitle: 'USER INPUT LAYER',
+    desc: 'Multi-tenant secure login. Provide AI prompts in natural language or build with basic form fields. Text, number, date, file uploads, checkboxes, radio buttons — all supported.',
+    bullets: ['AI prompt or manual field entry', 'Live editing without affecting active respondents', 'All inputs encrypted, authenticated & validated'],
+    pain: 'No more juggling 5 different tools.',
     color: '#0EA5E9',
     scene: 'cube'
   },
   {
     step: '02',
-    title: 'Describe it. AI Builds it.',
-    subtitle: 'AI FORM GENERATOR',
-    desc: 'Type what you need. AI generates the entire form structure, validation rules, and field logic in seconds.',
-    bullets: ['Natural language → working form', 'Auto-detects required fields', 'Smart validation built-in'],
-    pain: 'Stop spending 2 hours dragging fields.',
+    title: 'Describe It. AI Builds It.',
+    subtitle: 'AI WORKFLOW ENGINE',
+    desc: 'NLP engine (OpenAI / Gemini) parses your prompt and converts it into a workflow graph JSON. Input → Processing → Output nodes, each mapped to an automation task.',
+    bullets: ['Natural language → workflow graph', 'AI suggests missing fields & optimizes sequence', 'Stored in MongoDB with multi-tenant isolation'],
+    pain: 'Stop manually designing complex workflows.',
     color: '#10B981',
     scene: 'orb'
   },
   {
     step: '03',
-    title: 'Right People. Right Access.',
-    subtitle: 'ROLE-BASED CONTROL',
-    desc: 'Creator + selected users only. Granular permissions for editing and evaluating responses.',
-    bullets: ['Owner-only edit rights by default', 'Invite specific evaluators', 'Full audit trail of changes'],
-    pain: 'No more accidental edits by random users.',
+    title: 'Automate Everything.',
+    subtitle: 'WORKFLOW AUTOMATION',
+    desc: 'WebSockets for live updates. Node-by-node execution in real time. n8n integration for cross-platform automation with WhatsApp, email & in-app notifications.',
+    bullets: ['Real-time input collection & processing', 'Cross-platform via n8n integrations', 'WhatsApp, email & in-app alerts'],
+    pain: 'No manual dragging, no tool juggling, no re-publishing.',
     color: '#F59E0B',
     scene: 'torus'
   },
   {
     step: '04',
-    title: 'Go Live in One Click.',
-    subtitle: 'INSTANT PUBLISHING',
-    desc: 'Shareable link generated instantly. Embed anywhere or send directly via WhatsApp & email.',
-    bullets: ['Mobile-responsive by default', 'Custom domain support', 'No-code embedding'],
-    pain: 'No developer needed to launch.',
+    title: 'Secure. Scalable. Versioned.',
+    subtitle: 'DATA STORAGE LAYER',
+    desc: 'MongoDB collections for Users, Workflows & Responses. All data encrypted. Version history preserved for every edit. Scalable to future cloud deployment.',
+    bullets: ['Users, Workflows & Responses collections', 'Full version history on every edit', 'Scalable cloud-ready architecture'],
+    pain: 'Your data is always safe and recoverable.',
     color: '#8B5CF6',
     scene: 'cube'
   },
   {
     step: '05',
-    title: 'Edit Live. Zero Downtime.',
-    subtitle: 'LIVE FORM EDITING',
-    desc: 'Add fields, change types, update validations — even while form is collecting responses. Industry first.',
-    bullets: ['Real-time field updates', 'No respondent disruption', 'Version history preserved'],
-    pain: 'No more "republish & lose data" nightmare.',
+    title: 'See Everything. Live.',
+    subtitle: 'LIVE DASHBOARD & UI',
+    desc: 'Real-time dashboard showing active workflows, live submissions, and node-by-node execution status. Track responses completed, tasks executed & workflow efficiency.',
+    bullets: ['Active workflows & live submissions', 'Node-by-node execution status', 'Responses, tasks & efficiency metrics'],
+    pain: 'Full visibility into every running workflow.',
     color: '#EAB308',
     scene: 'torus'
   },
   {
     step: '06',
-    title: 'AI Evaluates. Per Role.',
-    subtitle: 'INTELLIGENT EVALUATION',
-    desc: 'HR sees candidate fit. CEO sees KPIs. Developers see technical scores. One submission → multiple insights.',
-    bullets: ['Role-specific dashboards', 'Auto-categorization of responses', 'Custom scoring per role'],
-    pain: 'Stop manually sorting 1000s of responses.',
+    title: 'AI Evaluates. You Act.',
+    subtitle: 'EVALUATION & REPORTING',
+    desc: 'AI evaluates collected responses, flags missing information, and generates insights & recommendations. Real-time notifications via WhatsApp, email & in-app alerts.',
+    bullets: ['AI flags gaps & generates insights', 'Real-time multi-channel notifications', 'Reports stored, versioned & exportable'],
+    pain: 'Stop manually sorting thousands of responses.',
     color: '#3B82F6',
     scene: 'orb'
   },
   {
     step: '07',
-    title: 'AI Recommends. You Improve.',
-    subtitle: 'AUTONOMOUS OPTIMIZATION',
-    desc: 'After analyzing responses, AI suggests new fields to capture better data. Your forms get smarter weekly.',
-    bullets: ['Auto-detect missing data points', 'A/B test recommendations', 'Continuous improvement loop'],
-    pain: 'Your form gets better while you sleep.',
+    title: 'Locked Down. Fully Audited.',
+    subtitle: 'SECURITY & COMPLIANCE',
+    desc: 'All data encrypted in transit & at rest. JWT + session authentication. Role-based access control. Complete audit logs for every workflow and AI action.',
+    bullets: ['End-to-end encryption (transit & rest)', 'JWT + session-based authentication', 'RBAC & full audit trail on all actions'],
+    pain: 'Enterprise-grade security from day one.',
     color: '#EF4444',
     scene: 'cube'
   },
   {
     id: 'cta',
     badge: 'READY TO TRANSFORM YOUR WORKFLOW?',
-    title: 'Stop Building Forms.\nStart Building Insights.',
-    subtitle: 'Join 12,000+ teams replacing Typeform, Google Forms, and Jotform.',
+    title: 'Stop Building Forms.\nStart Building Workflows.',
+    subtitle: 'Live editing, full AI-driven creation, multi-channel notifications, end-to-end automation — multi-industry ready, scalable & secure.',
     cta: 'Start Free Trial →',
     cta2: 'Book a Demo',
     color: '#EC4899',
@@ -552,7 +552,7 @@ export default function AnimatedWorkflow() {
         color: 'rgba(255,255,255,0.4)', fontSize: '13px',
         borderTop: '1px solid rgba(255,255,255,0.05)'
       }}>
-        © 2025 EzeeFlow · AI Form Automation Platform
+        © 2026 EzeeFlow · AI-Powered Workflow Automation Platform
       </footer>
     </div>
   );
