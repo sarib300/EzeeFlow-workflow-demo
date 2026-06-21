@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense, Fragment } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { 
   Float, Environment, MeshDistortMaterial, 
@@ -7,6 +7,7 @@ import {
 import { EffectComposer, Bloom, ChromaticAberration } from '@react-three/postprocessing';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import Lenis from 'lenis';
+import automationVideo from './assets/Automation-video.mp4';
 
 // ============ SMOOTH SCROLL ============
 function useSmoothScroll() {
@@ -464,6 +465,113 @@ function Section({ data, index }) {
   );
 }
 
+// ============ VIDEO SHOWCASE ============
+function VideoShowcase() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.2 });
+
+  return (
+    <section
+      ref={ref}
+      style={{
+        minHeight: '80vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        padding: 'clamp(40px, 8vw, 80px) clamp(16px, 5vw, 40px)',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Heading */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.7 }}
+        style={{ textAlign: 'center', marginBottom: 'clamp(24px, 4vw, 48px)', zIndex: 2 }}
+      >
+        <div style={{
+          display: 'inline-block',
+          padding: '6px 18px',
+          background: 'rgba(167, 139, 250, 0.12)',
+          border: '1px solid rgba(167, 139, 250, 0.3)',
+          borderRadius: '100px',
+          fontSize: 'clamp(9px, 1.1vw, 11px)',
+          color: '#A78BFA',
+          letterSpacing: '2.5px',
+          fontWeight: 600,
+          marginBottom: 'clamp(12px, 2vw, 20px)',
+          backdropFilter: 'blur(10px)',
+        }}>
+          ▶ PLATFORM DEMO
+        </div>
+        <h2 style={{
+          fontSize: 'clamp(26px, 5vw, 52px)',
+          fontWeight: 800,
+          background: 'linear-gradient(135deg, #fff 0%, #A78BFA 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          margin: 0,
+          letterSpacing: '-0.03em',
+          lineHeight: 1.1,
+        }}>
+          See It in Action
+        </h2>
+      </motion.div>
+
+      {/* Video Container */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.92, y: 40 }}
+        animate={inView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 40 }}
+        transition={{ duration: 0.9, ease: 'easeOut' }}
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '960px',
+          borderRadius: 'clamp(12px, 2vw, 24px)',
+          padding: '2px',
+          background: 'linear-gradient(135deg, #A78BFA, #EC4899, #0EA5E9)',
+          boxShadow: '0 0 60px rgba(167, 139, 250, 0.25), 0 0 120px rgba(236, 72, 153, 0.1)',
+          zIndex: 2,
+        }}
+      >
+        <div style={{
+          borderRadius: 'calc(clamp(12px, 2vw, 24px) - 2px)',
+          overflow: 'hidden',
+          background: '#0a0a0a',
+        }}>
+          <video
+            src={automationVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              width: '100%',
+              display: 'block',
+              borderRadius: 'calc(clamp(12px, 2vw, 24px) - 2px)',
+            }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Ambient glow behind video */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '70%',
+        height: '70%',
+        background: 'radial-gradient(circle, rgba(167, 139, 250, 0.12) 0%, transparent 70%)',
+        pointerEvents: 'none',
+        zIndex: 1,
+      }} />
+    </section>
+  );
+}
+
 // ============ PROGRESS BAR ============
 function ProgressNav() {
   const { scrollYProgress } = useScroll();
@@ -545,7 +653,12 @@ export default function AnimatedWorkflow() {
         zIndex: -1
       }} />
 
-      {sections.map((s, i) => <Section key={i} data={s} index={i} />)}
+      {sections.map((s, i) => (
+        <Fragment key={i}>
+          <Section data={s} index={i} />
+          {s.id === 'hero' && <VideoShowcase />}
+        </Fragment>
+      ))}
 
       <footer style={{
         padding: '40px', textAlign: 'center',
