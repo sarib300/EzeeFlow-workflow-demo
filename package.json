@@ -4,20 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": " vite",
+    "build": " vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": " vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^9.x",
-    "@react-three/fiber": "^8.x",
-    "@react-three/postprocessing": "^2.x",
     "framer-motion": "^11.x",
     "lenis": "^1.x",
     "react": "^18.x",
-    "react-dom": "^18.x",
-    "three": "^0.160.x"
+    "react-dom": "^18.x"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

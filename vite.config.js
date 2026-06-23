@@ -8,20 +8,14 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('three') || id.includes('@react-three')) {
-              return 'three-vendor'
-            }
-            if (id.includes('framer-motion')) {
-              return 'motion-vendor'
-            }
-            if (id.includes('react') || id.includes('scheduler')) {
-              return 'react-vendor'
-            }
+            if (id.includes('framer-motion')) return 'motion-vendor'
+            if (id.includes('react') || id.includes('scheduler')) return 'react-vendor'
             return 'vendor'
           }
         }
       }
     },
-    chunkSizeWarningLimit: 1500
+    chunkSizeWarningLimit: 1500,
+    assetsInlineLimit: 0  // never inline videos as base64
   }
 })
